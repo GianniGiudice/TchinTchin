@@ -1,55 +1,3 @@
-/// idDrink : "15300"
-/// strDrink : "3-Mile Long Island Iced Tea"
-/// strDrinkAlternate : null
-/// strTags : null
-/// strVideo : null
-/// strCategory : "Ordinary Drink"
-/// strIBA : null
-/// strAlcoholic : "Alcoholic"
-/// strGlass : "Collins Glass"
-/// strInstructions : "Fill 14oz glass with ice and alcohol. Fill 2/3 glass with cola and remainder with sweet & sour. Top with dash of bitters and lemon wedge."
-/// strInstructionsES : null
-/// strInstructionsDE : "Füllen Sie ein 12 cl. Glas mit Eis und Alkohol. Füllen Sie 2/3 des Glases mit Cola und den Rest mit Süß-Sauer. Mit einem Schuss Bitter und Zitronenkeil garnieren."
-/// strInstructionsFR : null
-/// strInstructionsIT : "Riempi un bicchiere da almeno 400ml con ghiaccio e alcol. Riempire i restanti 2/3 di bicchiere di cola e il resto di bevanda sweet & sour. Completare con un pizzico di bitter e uno spicchio di limone."
-/// strInstructionsZH-HANS : null
-/// strInstructionsZH-HANT : null
-/// strDrinkThumb : "https://www.thecocktaildb.com/images/media/drink/rrtssw1472668972.jpg"
-/// strIngredient1 : "Gin"
-/// strIngredient2 : "Light rum"
-/// strIngredient3 : "Tequila"
-/// strIngredient4 : "Triple sec"
-/// strIngredient5 : "Vodka"
-/// strIngredient6 : "Coca-Cola"
-/// strIngredient7 : "Sweet and sour"
-/// strIngredient8 : "Bitters"
-/// strIngredient9 : "Lemon"
-/// strIngredient10 : null
-/// strIngredient11 : null
-/// strIngredient12 : null
-/// strIngredient13 : null
-/// strIngredient14 : null
-/// strIngredient15 : null
-/// strMeasure1 : "1/2 oz"
-/// strMeasure2 : "1/2 oz"
-/// strMeasure3 : "1/2 oz"
-/// strMeasure4 : "1/2 oz"
-/// strMeasure5 : "1/2 oz"
-/// strMeasure6 : "1/2 oz"
-/// strMeasure7 : "1-2 dash "
-/// strMeasure8 : "1 wedge "
-/// strMeasure9 : "Garnish with"
-/// strMeasure10 : null
-/// strMeasure11 : null
-/// strMeasure12 : null
-/// strMeasure13 : null
-/// strMeasure14 : null
-/// strMeasure15 : null
-/// strImageSource : null
-/// strImageAttribution : null
-/// strCreativeCommonsConfirmed : "No"
-/// dateModified : "2016-08-31 19:42:52"
-
 class Cocktaildetails {
   String? _idDrink;
   String? _strDrink;
@@ -65,8 +13,6 @@ class Cocktaildetails {
   String? _strInstructionsDE;
   dynamic? _strInstructionsFR;
   String? _strInstructionsIT;
-  dynamic? _strInstructionsZH-HANS;
-  dynamic? _strInstructionsZH-HANT;
   String? _strDrinkThumb;
   String? _strIngredient1;
   String? _strIngredient2;
@@ -117,8 +63,6 @@ class Cocktaildetails {
   String? get strInstructionsDE => _strInstructionsDE;
   dynamic? get strInstructionsFR => _strInstructionsFR;
   String? get strInstructionsIT => _strInstructionsIT;
-  dynamic? get strInstructionsZH-HANS => _strInstructionsZH-HANS;
-  dynamic? get strInstructionsZH-HANT => _strInstructionsZH-HANT;
   String? get strDrinkThumb => _strDrinkThumb;
   String? get strIngredient1 => _strIngredient1;
   String? get strIngredient2 => _strIngredient2;
@@ -169,9 +113,7 @@ class Cocktaildetails {
       dynamic? strInstructionsES, 
       String? strInstructionsDE, 
       dynamic? strInstructionsFR, 
-      String? strInstructionsIT, 
-      dynamic? strInstructionsZH-HANS, 
-      dynamic? strInstructionsZH-HANT, 
+      String? strInstructionsIT,
       String? strDrinkThumb, 
       String? strIngredient1, 
       String? strIngredient2, 
@@ -221,8 +163,6 @@ class Cocktaildetails {
     _strInstructionsDE = strInstructionsDE;
     _strInstructionsFR = strInstructionsFR;
     _strInstructionsIT = strInstructionsIT;
-    _strInstructionsZH-HANS = strInstructionsZH-HANS;
-    _strInstructionsZH-HANT = strInstructionsZH-HANT;
     _strDrinkThumb = strDrinkThumb;
     _strIngredient1 = strIngredient1;
     _strIngredient2 = strIngredient2;
@@ -275,8 +215,6 @@ class Cocktaildetails {
     _strInstructionsDE = json['strInstructionsDE'];
     _strInstructionsFR = json['strInstructionsFR'];
     _strInstructionsIT = json['strInstructionsIT'];
-    _strInstructionsZH-HANS = json['strInstructionsZH-HANS'];
-    _strInstructionsZH-HANT = json['strInstructionsZH-HANT'];
     _strDrinkThumb = json['strDrinkThumb'];
     _strIngredient1 = json['strIngredient1'];
     _strIngredient2 = json['strIngredient2'];
@@ -330,8 +268,6 @@ class Cocktaildetails {
     map['strInstructionsDE'] = _strInstructionsDE;
     map['strInstructionsFR'] = _strInstructionsFR;
     map['strInstructionsIT'] = _strInstructionsIT;
-    map['strInstructionsZH-HANS'] = _strInstructionsZH-HANS;
-    map['strInstructionsZH-HANT'] = _strInstructionsZH-HANT;
     map['strDrinkThumb'] = _strDrinkThumb;
     map['strIngredient1'] = _strIngredient1;
     map['strIngredient2'] = _strIngredient2;
