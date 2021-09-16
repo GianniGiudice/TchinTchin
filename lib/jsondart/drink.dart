@@ -1,4 +1,8 @@
-class Cocktail {
+/// strDrink : "155 Belmont"
+/// strDrinkThumb : "https://www.thecocktaildb.com/images/media/drink/yqvvqs1475667388.jpg"
+/// idDrink : "15346"
+
+class Drink {
   String? _strDrink;
   String? _strDrinkThumb;
   String? _idDrink;
@@ -7,16 +11,16 @@ class Cocktail {
   String? get strDrinkThumb => _strDrinkThumb;
   String? get idDrink => _idDrink;
 
-  Cocktail({
-      String? strDrink, 
-      String? strDrinkThumb, 
+  Drink({
+      String? strDrink,
+      String? strDrinkThumb,
       String? idDrink}){
-    _strDrink = strDrink;
-    _strDrinkThumb = strDrinkThumb;
-    _idDrink = idDrink;
+    _strDrink = strDrink!;
+    _strDrinkThumb = strDrinkThumb!;
+    _idDrink = idDrink!;
 }
 
-  Cocktail.fromJson(dynamic json) {
+  Drink.fromJson(dynamic json) {
     _strDrink = json['strDrink'];
     _strDrinkThumb = json['strDrinkThumb'];
     _idDrink = json['idDrink'];
