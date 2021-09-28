@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tchintchin/cocktails_list.dart';
-import 'package:tchintchin/jsondart/cocktail.dart';
+import 'package:tchintchin/jsondart/cocktails.dart';
 
 void main() {
   runApp(const MyApp());

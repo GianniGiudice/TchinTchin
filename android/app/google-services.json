@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "460775411932",
+    "project_id": "tchintchin-fa3c3",
+    "storage_bucket": "tchintchin-fa3c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460775411932:android:1b26fe6616fac1d786e419",
+        "android_client_info": {
+          "package_name": "com.example.tchintchin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460775411932-2sljnblnqit5l1tn38qgcfef2jjf0fc7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZk8KFgfT8m_4QjhPsjpeaN0CbwEW3joY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460775411932-2sljnblnqit5l1tn38qgcfef2jjf0fc7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
