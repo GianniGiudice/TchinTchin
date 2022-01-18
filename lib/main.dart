@@ -96,18 +96,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                     var password = _passwordController.value.text;
                     var email = _emailController.value.text;
-
-                    try {
-                      var result = await FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                          email: email, password: password);
-                      var user = result.user;
-
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CocktailsList()));
-                    } catch(e) {
-                      log(e.toString());
+                    User? user = await _auth.signInWithEmailAndPassword(email, password);
+                    if (user != null) {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => CocktailsList()));
                     }
-
+                    else {
+                      _auth.showErrorAlertDialog(
+                          context,
+                          "Identifiants incorrects",
+                          "Vos identifiants sont incorrects, veuillez réessayer."
+                      );
+                    }
                   }
 
                 }, child: Text('Valider'))
