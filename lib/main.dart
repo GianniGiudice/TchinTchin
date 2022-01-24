@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.indigo,
+        primaryColor: Colors.white
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -70,59 +71,177 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-        appBar: AppBar(
-            title: Text('Titre')
-        ),
-        body: Form(
-            key: _key,
+        body: Column(children: [
+      Expanded(
+          child: Container(
+        color: const Color(0xfffafafa),
+        child: Center(
             child: Column(
-              children: [
-                TextFormField(
-                  controller: _emailController,
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return 'ERREUR';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                    controller: _passwordController
-                ),
-                ElevatedButton(onPressed: () async {
-                  if (_key.currentState!.validate()) {
-                    setState(() {
-                      loading = true;
-                    });
-                    var password = _passwordController.value.text;
-                    var email = _emailController.value.text;
-                    User? user = await _auth.signInWithEmailAndPassword(email, password);
-                    if (user != null) {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => CocktailsList()));
-                    }
-                    else {
-                      _auth.showErrorAlertDialog(
-                          context,
-                          "Identifiants incorrects",
-                          "Vos identifiants sont incorrects, veuillez réessayer."
-                      );
-                    }
-                  }
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset('images/alcohol.png', height: 120),
+            Text('TchinTchin',
+                style: TextStyle(
+                    fontSize: 30,
+                    color: const Color(0xff37718E),
+                    fontWeight: FontWeight.bold)),
+          ],
+        )),
+      )),
+      Expanded(
+          child: Container(
+              color: const Color(0xff37718E),
+              child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Form(
+                          key: _key,
+                          child: Column(
+                            children: [
+                              Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.65,
+                                  child: Column(children: [
+                                    Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 10),
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(color: Colors.white)
+                                            ),
+                                              border: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.white
+                                                  )
+                                              ),
+                                              labelText: 'Adresse mail'),
+                                          controller: _emailController,
+                                          validator: (value) {
+                                            if (value != null &&
+                                                value.isEmpty) {
+                                              return 'ERREUR';
+                                            }
+                                            return null;
+                                          },
+                                        )),
+                                    TextFormField(
+                                        decoration: InputDecoration(
+                                          hintStyle: TextStyle(color: Colors.white),
+                                          fillColor: Colors.white,
+                                          focusColor: Colors.white,
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(color: Colors.white)
+                                          ),
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.white)),
+                                          labelText: 'Mot de passe',
+                                        ),
+                                        controller: _passwordController),
+                                    Container(
+                                        margin: const EdgeInsets.only(top: 10),
+                                        child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                minimumSize: Size(200, 40),
+                                                primary:
+                                                    const Color(0xfffafafa),
+                                                onPrimary:
+                                                    const Color(0xff000000)),
+                                            onPressed: () async {
+                                              if (_key.currentState!
+                                                  .validate()) {
+                                                setState(() {
+                                                  loading = true;
+                                                });
+                                                var password =
+                                                    _passwordController
+                                                        .value.text;
+                                                var email =
+                                                    _emailController.value.text;
+                                                User? user = await _auth
+                                                    .signInWithEmailAndPassword(
+                                                        email, password);
+                                                if (user != null) {
+                                                  Navigator.of(context)
+                                                      .pushReplacement(
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  CocktailsList()));
+                                                } else {
+                                                  _auth.showErrorAlertDialog(
+                                                      context,
+                                                      "Identifiants incorrects",
+                                                      "Vos identifiants sont incorrects, veuillez réessayer.");
+                                                }
+                                              }
+                                            },
+                                            child: Text('Connexion')))
+                                  ]))
+                            ],
+                          ))
+                    ]),
+              ))
 
-                }, child: Text('Valider'))
-              ],
-            )
-        ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () { Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => CocktailsList()
-            )
-        );},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
+          /*Form(
+          key: _key,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _emailController,
+                validator: (value) {
+                  if (value != null && value.isEmpty) {
+                    return 'ERREUR';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(controller: _passwordController),
+              Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: ElevatedButton(
+                      style:
+                          ElevatedButton.styleFrom(minimumSize: Size(200, 40)),
+                      onPressed: () async {
+                        if (_key.currentState!.validate()) {
+                          setState(() {
+                            loading = true;
+                          });
+                          var password = _passwordController.value.text;
+                          var email = _emailController.value.text;
+                          User? user = await _auth.signInWithEmailAndPassword(
+                              email, password);
+                          if (user != null) {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => CocktailsList()));
+                          } else {
+                            _auth.showErrorAlertDialog(
+                                context,
+                                "Identifiants incorrects",
+                                "Vos identifiants sont incorrects, veuillez réessayer.");
+                          }
+                        }
+                      },
+                      child: Text('Connexion')))
+            ],
+          ))),
+      floatingActionButton: Container(
+          height: 40,
+          width: 200,
+          child: FloatingActionButton(
+            shape: BeveledRectangleBorder(borderRadius: BorderRadius.zero),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => CocktailsList()));
+            },
+            tooltip: 'Increment',
+            child: const Text('Inscription'),
+          )),*/
+          )
+    ]));
   }
 }
