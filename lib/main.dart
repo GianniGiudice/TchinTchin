@@ -18,18 +18,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Tchin Tchin',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.indigo,
-        primaryColor: Colors.white
-      ),
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.indigo,
+          primaryColor: Colors.white),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -110,14 +109,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                             const EdgeInsets.only(bottom: 10),
                                         child: TextFormField(
                                           decoration: InputDecoration(
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.white)
-                                            ),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.white)),
                                               border: OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors.white
-                                                  )
-                                              ),
+                                                      color: Colors.white)),
                                               labelText: 'Adresse mail'),
                                           controller: _emailController,
                                           validator: (value) {
@@ -130,12 +127,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                         )),
                                     TextFormField(
                                         decoration: InputDecoration(
-                                          hintStyle: TextStyle(color: Colors.white),
+                                          hintStyle:
+                                              TextStyle(color: Colors.white),
                                           fillColor: Colors.white,
                                           focusColor: Colors.white,
                                           focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.white)
-                                          ),
+                                              borderSide: BorderSide(
+                                                  color: Colors.white)),
                                           border: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: Colors.white)),
@@ -146,11 +144,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                         margin: const EdgeInsets.only(top: 10),
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                minimumSize: Size(200, 40),
+                                                minimumSize: Size(
+                                                MediaQuery.of(context).size.width * 0.65, 50),
                                                 primary:
                                                     const Color(0xfffafafa),
                                                 onPrimary:
-                                                    const Color(0xff000000)),
+                                                    const Color(0xff37718E)
+                                            ),
                                             onPressed: () async {
                                               if (_key.currentState!
                                                   .validate()) {
@@ -182,66 +182,30 @@ class _MyHomePageState extends State<MyHomePage> {
                                             child: Text('Connexion')))
                                   ]))
                             ],
-                          ))
+                          )),
                     ]),
-              ))
-
-          /*Form(
-          key: _key,
+              ))),
+    ]), floatingActionButton: Container(
+        height: 40,
+        width: 200,
+        child: FloatingActionButton(
+          hoverElevation: 0,
+          hoverColor: Color(0xff37718E),
+          elevation: 0,
+          backgroundColor: Color(0xff37718E),
+          foregroundColor: Colors.white,
+          shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(width: 0, color: Color(0xff37718E))),
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => CocktailsList()));
+          },
+          tooltip: 'Inscription',
           child: Column(
             children: [
-              TextFormField(
-                controller: _emailController,
-                validator: (value) {
-                  if (value != null && value.isEmpty) {
-                    return 'ERREUR';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(controller: _passwordController),
-              Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: ElevatedButton(
-                      style:
-                          ElevatedButton.styleFrom(minimumSize: Size(200, 40)),
-                      onPressed: () async {
-                        if (_key.currentState!.validate()) {
-                          setState(() {
-                            loading = true;
-                          });
-                          var password = _passwordController.value.text;
-                          var email = _emailController.value.text;
-                          User? user = await _auth.signInWithEmailAndPassword(
-                              email, password);
-                          if (user != null) {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => CocktailsList()));
-                          } else {
-                            _auth.showErrorAlertDialog(
-                                context,
-                                "Identifiants incorrects",
-                                "Vos identifiants sont incorrects, veuillez réessayer.");
-                          }
-                        }
-                      },
-                      child: Text('Connexion')))
-            ],
-          ))),
-      floatingActionButton: Container(
-          height: 40,
-          width: 200,
-          child: FloatingActionButton(
-            shape: BeveledRectangleBorder(borderRadius: BorderRadius.zero),
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => CocktailsList()));
-            },
-            tooltip: 'Increment',
-            child: const Text('Inscription'),
-          )),*/
-          )
-    ]));
+              Icon(Icons.supervisor_account),
+              const Text('Créer mon compte')
+            ]
+          ),
+        )));
   }
 }
