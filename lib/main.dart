@@ -2,7 +2,8 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tchintchin/cocktails_list.dart';
+import 'package:tchintchin/screen/categories_list.dart';
+import 'package:tchintchin/screen/cocktails_list.dart';
 import 'package:tchintchin/service/authentication.dart';
 
 void main() {
@@ -170,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       .pushReplacement(
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  CocktailsList()));
+                                                                  CategoriesList()));
                                                 } else {
                                                   _auth.showErrorAlertDialog(
                                                       context,
