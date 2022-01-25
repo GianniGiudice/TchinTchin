@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tchintchin/screen/categories_list.dart';
 import 'package:tchintchin/screen/cocktails_list.dart';
+import 'package:tchintchin/screen/registration.dart';
 import 'package:tchintchin/service/authentication.dart';
 
 void main() {
@@ -191,14 +192,14 @@ class _MyHomePageState extends State<MyHomePage> {
         width: 200,
         child: FloatingActionButton(
           hoverElevation: 0,
-          hoverColor: Color(0xff37718E),
+          hoverColor: Colors.transparent,
           elevation: 0,
-          backgroundColor: Color(0xff37718E),
+          backgroundColor: Colors.transparent,
           foregroundColor: Colors.white,
-          shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(width: 0, color: Color(0xff37718E))),
+          shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(width: 0, color: Colors.transparent)),
           onPressed: () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => CocktailsList()));
+                MaterialPageRoute(builder: (context) => Registration()));
           },
           tooltip: 'Inscription',
           child: Column(
