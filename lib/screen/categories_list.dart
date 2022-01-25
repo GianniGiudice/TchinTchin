@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:tchintchin/jsondart/categories_l.dart';
 import 'package:tchintchin/jsondart/category.dart';
+import 'package:tchintchin/screen/drinks_by_category.dart';
 
 class CategoriesList extends StatefulWidget {
   const CategoriesList({Key? key}) : super(key: key);
@@ -17,8 +18,8 @@ class _CategoriesListState extends State<CategoriesList> {
 
   Future<void> _getAllCategories() async {
     var uri = Uri.parse(
-        "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list");
-
+        "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list"
+    );
     var responseFromApi = await http.get(uri);
 
     if (responseFromApi.statusCode == 200) {
@@ -33,6 +34,7 @@ class _CategoriesListState extends State<CategoriesList> {
   @override
   Widget build(BuildContext context) {
     _getAllCategories();
+
     return Scaffold(
         body: Column(children: [
       Container(
@@ -55,11 +57,11 @@ class _CategoriesListState extends State<CategoriesList> {
                             title: Text(
                                 _categories?[index].strCategory ?? "VIDE",
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            /*onTap: () {
+                            onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => CharacterScreen(
-                                      character: _characters[index])));
-                            },*/
+                                  builder: (context) => DrinksByCategory(
+                                      category: _categories![index].strCategory!)));
+                            },
                           )));
                 },
               )))
