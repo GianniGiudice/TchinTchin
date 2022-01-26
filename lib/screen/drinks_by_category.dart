@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:tchintchin/jsondart/categories_l.dart';
 import 'package:tchintchin/jsondart/cocktails.dart';
 import 'package:tchintchin/jsondart/drink.dart';
+import 'package:tchintchin/screen/cocktail.dart';
 
 class DrinksByCategory extends StatefulWidget {
   final String category;
@@ -63,12 +63,12 @@ class _DrinksByCategoryState extends State<DrinksByCategory> {
                                         borderRadius: BorderRadius.circular(8.0),
                                         child: Image.network(
                                           _drinks?[index].strDrinkThumb ?? "",
-                                        )))
-                              /*onTap: () {
+                                        ))),
+                              onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => CharacterScreen(
-                                      character: _characters[index])));
-                            },*/
+                                  builder: (context) => Cocktail(
+                                      idDrink: _drinks![index].idDrink!)));
+                            },
                             ))
                     );
                   })))
