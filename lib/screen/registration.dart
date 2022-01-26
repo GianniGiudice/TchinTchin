@@ -49,22 +49,25 @@ class _RegistrationState extends State<Registration> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          registered ?
-                          Container(
-                              margin: const EdgeInsets.only(bottom: 30),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.supervisor_account, color: Color(0xff1C8D5A),),
-                                  Text(
-                                    'Vous êtes bien enregistré, vous pouvez dès à présent vous connecter.',
-                                    style: TextStyle(
+                          registered
+                              ? Container(
+                                  margin: const EdgeInsets.only(bottom: 30),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.supervisor_account,
                                         color: Color(0xff1C8D5A),
-                                        fontSize: 20
-                                    ),
-                                  )
-                                ],
-                              )) : Text(''),
+                                      ),
+                                      Text(
+                                        'Vous êtes bien enregistré, vous pouvez dès à présent vous connecter.',
+                                        style: TextStyle(
+                                            color: Color(0xff1C8D5A),
+                                            fontSize: 20),
+                                      )
+                                    ],
+                                  ))
+                              : Text(''),
                           Container(
                             margin: const EdgeInsets.only(bottom: 30),
                             child: Text(
