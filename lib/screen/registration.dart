@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:tchintchin/main.dart';
 import 'package:tchintchin/service/authentication.dart';
 
+import 'homepage.dart';
+
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
 
