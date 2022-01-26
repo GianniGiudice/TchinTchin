@@ -27,8 +27,7 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       body: Center(
         child: Container(
-        child: Text('Splash Screen',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+        child: Image.asset('assets/images/tchintchin.png')
       ),
       ),
     );

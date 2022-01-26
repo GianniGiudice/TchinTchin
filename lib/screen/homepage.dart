@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset('images/alcohol.png', height: 120),
+                        Image.asset('assets/images/alcohol.png', height: 120),
                         Text('TchinTchin',
                             style: TextStyle(
                                 fontSize: 30,

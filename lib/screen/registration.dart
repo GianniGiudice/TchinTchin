@@ -34,7 +34,7 @@ class _RegistrationState extends State<Registration> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('images/alcohol_yellow.png', height: 120),
+                Image.asset('assets/images/alcohol_yellow.png', height: 120),
                 Text('TchinTchin',
                     style: TextStyle(
                         fontSize: 30,
