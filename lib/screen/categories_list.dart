@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:tchintchin/jsondart/categories_l.dart';
 import 'package:tchintchin/jsondart/category.dart';
@@ -18,8 +19,7 @@ class _CategoriesListState extends State<CategoriesList> {
 
   Future<void> _getAllCategories() async {
     var uri = Uri.parse(
-        "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list"
-    );
+        "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list");
     var responseFromApi = await http.get(uri);
 
     if (responseFromApi.statusCode == 200) {
@@ -47,22 +47,38 @@ class _CategoriesListState extends State<CategoriesList> {
       Expanded(
           child: Container(
               padding: const EdgeInsets.all(30),
-              child: ListView.builder(
+              child: StaggeredGridView.countBuilder(
+                crossAxisCount: 3,
                 itemCount: _categories?.length,
                 itemBuilder: (context, index) {
                   return Card(
                       child: Container(
                           padding: const EdgeInsets.all(15),
-                          child: ListTile(
-                            title: Text(
-                                _categories?[index].strCategory ?? "VIDE",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => DrinksByCategory(
-                                      category: _categories![index].strCategory!)));
-                            },
-                          )));
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                      _categories?[index].strCategory ?? "VIDE",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                          fontWeight: FontWeight.bold)),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DrinksByCategory(
+                                                    category:
+                                                        _categories![index]
+                                                            .strCategory!)));
+                                  },
+                                )
+                              ])));
+                },
+                staggeredTileBuilder: (int index) {
+                  return StaggeredTile.count(1, 1);
                 },
               )))
     ]));

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class _CocktailState extends State<Cocktail> {
   FullDataDrink? drink = new FullDataDrink();
 
   Future<void> _getDrinkFullData() async {
+    log(widget.idDrink);
     var uri = Uri.parse(
         "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + widget.idDrink
     );
@@ -37,6 +39,7 @@ class _CocktailState extends State<Cocktail> {
 
   @override
   Widget build(BuildContext context) {
+    _getDrinkFullData();
     return Container(
       child: Text(drink!.strDrink!),
     );
