@@ -105,26 +105,40 @@ class _RegistrationState extends State<Registration> {
                                               validator: (value) {
                                                 if (value != null &&
                                                     value.isEmpty) {
-                                                  return 'ERREUR';
+                                                  return 'Ce champ est requis';
+                                                }
+                                                // using regular expression
+                                                if (!RegExp(r'\S+@\S+\.\S+')
+                                                    .hasMatch(value!)) {
+                                                  return "Veuillez entrer une adresse email valide";
                                                 }
                                                 return null;
                                               },
                                             )),
                                         TextFormField(
-                                            decoration: InputDecoration(
-                                              hintStyle: TextStyle(
-                                                  color: Colors.white),
-                                              fillColor: Colors.white,
-                                              focusColor: Colors.white,
-                                              focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.white)),
-                                              border: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.white)),
-                                              labelText: 'Mot de passe',
-                                            ),
-                                            controller: _passwordController),
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                            hintStyle:
+                                                TextStyle(color: Colors.white),
+                                            fillColor: Colors.white,
+                                            focusColor: Colors.white,
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.white)),
+                                            border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.white)),
+                                            labelText: 'Mot de passe',
+                                          ),
+                                          controller: _passwordController,
+                                          validator: (value) {
+                                            if (value != null &&
+                                                value.isEmpty) {
+                                              return 'Ce champ est requis';
+                                            }
+                                            return null;
+                                          },
+                                        ),
                                         Container(
                                             margin:
                                                 const EdgeInsets.only(top: 10),
