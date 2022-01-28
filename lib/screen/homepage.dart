@@ -44,21 +44,21 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(children: [
           Expanded(
               child: Container(
-                color: const Color(0xfffafafa),
-                child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/images/alcohol.png', height: 120),
-                        Text('TchinTchin',
-                            style: TextStyle(
-                                fontSize: 30,
-                                color: const Color(0xff37718E),
-                                fontWeight: FontWeight.bold)),
-                      ],
-                    )),
-              )),
+            color: const Color(0xfffafafa),
+            child: Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset('assets/images/alcohol.png', height: 120),
+                Text('TchinTchin',
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: const Color(0xff37718E),
+                        fontWeight: FontWeight.bold)),
+              ],
+            )),
+          )),
           Expanded(
               child: Container(
                   color: const Color(0xff37718E),
@@ -72,17 +72,20 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Column(
                                 children: [
                                   Container(
-                                      width:
-                                      MediaQuery.of(context).size.width * 0.65,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.65,
                                       child: Column(children: [
                                         Container(
-                                            margin:
-                                            const EdgeInsets.only(bottom: 10),
+                                            margin: const EdgeInsets.only(
+                                                bottom: 10),
                                             child: TextFormField(
                                               decoration: InputDecoration(
-                                                  focusedBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Colors.white)),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .white)),
                                                   border: OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                           color: Colors.white)),
@@ -91,37 +94,55 @@ class _MyHomePageState extends State<MyHomePage> {
                                               validator: (value) {
                                                 if (value != null &&
                                                     value.isEmpty) {
-                                                  return 'ERREUR';
+                                                  return 'Ce champ est requis';
+                                                }
+                                                // using regular expression
+                                                if (!RegExp(r'\S+@\S+\.\S+')
+                                                    .hasMatch(value!)) {
+                                                  return "Veuillez entrer une adresse email valide";
                                                 }
                                                 return null;
                                               },
                                             )),
                                         TextFormField(
-                                            decoration: InputDecoration(
-                                              hintStyle:
-                                              TextStyle(color: Colors.white),
-                                              fillColor: Colors.white,
-                                              focusColor: Colors.white,
-                                              focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.white)),
-                                              border: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.white)),
-                                              labelText: 'Mot de passe',
-                                            ),
-                                            controller: _passwordController),
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                            hintStyle:
+                                                TextStyle(color: Colors.white),
+                                            fillColor: Colors.white,
+                                            focusColor: Colors.white,
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.white)),
+                                            border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.white)),
+                                            labelText: 'Mot de passe',
+                                          ),
+                                          controller: _passwordController,
+                                          validator: (value) {
+                                            if (value != null &&
+                                                value.isEmpty) {
+                                              return 'Ce champ est requis';
+                                            }
+                                            return null;
+                                          },
+                                        ),
                                         Container(
-                                            margin: const EdgeInsets.only(top: 10),
+                                            margin:
+                                                const EdgeInsets.only(top: 10),
                                             child: ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                     minimumSize: Size(
-                                                        MediaQuery.of(context).size.width * 0.65, 50),
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.65,
+                                                        50),
                                                     primary:
-                                                    const Color(0xfffafafa),
-                                                    onPrimary:
-                                                    const Color(0xff37718E)
-                                                ),
+                                                        const Color(0xfffafafa),
+                                                    onPrimary: const Color(
+                                                        0xff37718E)),
                                                 onPressed: () async {
                                                   if (_key.currentState!
                                                       .validate()) {
@@ -131,17 +152,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     var password =
                                                         _passwordController
                                                             .value.text;
-                                                    var email =
-                                                        _emailController.value.text;
+                                                    var email = _emailController
+                                                        .value.text;
                                                     User? user = await _auth
                                                         .signInWithEmailAndPassword(
-                                                        email, password);
+                                                            email, password);
                                                     if (user != null) {
                                                       Navigator.of(context)
                                                           .pushReplacement(
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  CategoriesList()));
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          CategoriesList()));
                                                     } else {
                                                       _auth.showErrorAlertDialog(
                                                           context,
@@ -156,27 +178,28 @@ class _MyHomePageState extends State<MyHomePage> {
                               )),
                         ]),
                   ))),
-        ]), floatingActionButton: Container(
-        height: 40,
-        width: 200,
-        child: FloatingActionButton(
-          hoverElevation: 0,
-          hoverColor: Colors.transparent,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.white,
-          shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(width: 0, color: Colors.transparent)),
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => Registration()));
-          },
-          tooltip: 'Inscription',
-          child: Column(
-              children: [
+        ]),
+        floatingActionButton: Container(
+            height: 40,
+            width: 200,
+            child: FloatingActionButton(
+              hoverElevation: 0,
+              hoverColor: Colors.transparent,
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              foregroundColor: Colors.white,
+              shape: BeveledRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  side: BorderSide(width: 0, color: Colors.transparent)),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => Registration()));
+              },
+              tooltip: 'Inscription',
+              child: Column(children: [
                 Icon(Icons.supervisor_account),
                 const Text('Créer mon compte')
-              ]
-          ),
-        )));
+              ]),
+            )));
   }
 }
