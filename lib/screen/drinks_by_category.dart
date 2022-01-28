@@ -50,7 +50,7 @@ class _DrinksByCategoryState extends State<DrinksByCategory> {
           child: Container(
               padding: const EdgeInsets.all(30),
               child: StaggeredGridView.countBuilder(
-                crossAxisCount: 3,
+                crossAxisCount: 2,
                 itemCount: _drinks?.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(

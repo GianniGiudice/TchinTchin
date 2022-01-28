@@ -16,21 +16,7 @@ class FullDataDrink {
   String? _strInstructionsZHHANS;
   String? _strInstructionsZHHANT;
   String? _strDrinkThumb;
-  String? _strIngredient1;
-  String? _strIngredient2;
-  String? _strIngredient3;
-  String? _strIngredient4;
-  String? _strIngredient5;
-  String? _strIngredient6;
-  String? _strIngredient7;
-  String? _strIngredient8;
-  String? _strIngredient9;
-  String? _strIngredient10;
-  String? _strIngredient11;
-  String? _strIngredient12;
-  String? _strIngredient13;
-  String? _strIngredient14;
-  String? _strIngredient15;
+  List<dynamic>? _strIngredients;
   String? _strMeasure1;
   String? _strMeasure2;
   String? _strMeasure3;
@@ -68,21 +54,7 @@ class FullDataDrink {
   String? get strInstructionsZHHANS => _strInstructionsZHHANS;
   String? get strInstructionsZHHANT => _strInstructionsZHHANT;
   String? get strDrinkThumb => _strDrinkThumb;
-  String? get strIngredient1 => _strIngredient1;
-  String? get strIngredient2 => _strIngredient2;
-  String? get strIngredient3 => _strIngredient3;
-  String? get strIngredient4 => _strIngredient4;
-  String? get strIngredient5 => _strIngredient5;
-  String? get strIngredient6 => _strIngredient6;
-  String? get strIngredient7 => _strIngredient7;
-  String? get strIngredient8 => _strIngredient8;
-  String? get strIngredient9 => _strIngredient9;
-  String? get strIngredient10 => _strIngredient10;
-  String? get strIngredient11 => _strIngredient11;
-  String? get strIngredient12 => _strIngredient12;
-  String? get strIngredient13 => _strIngredient13;
-  String? get strIngredient14 => _strIngredient14;
-  String? get strIngredient15 => _strIngredient15;
+  List<dynamic>? get strIngredients => _strIngredients;
   String? get strMeasure1 => _strMeasure1;
   String? get strMeasure2 => _strMeasure2;
   String? get strMeasure3 => _strMeasure3;
@@ -121,21 +93,7 @@ class FullDataDrink {
       String? strInstructionsZHHANS,
       String? strInstructionsZHHANT,
       String? strDrinkThumb,
-      String? strIngredient1,
-      String? strIngredient2,
-      String? strIngredient3,
-      String? strIngredient4,
-      String? strIngredient5,
-      String? strIngredient6,
-      String? strIngredient7,
-      String? strIngredient8,
-      String? strIngredient9,
-      String? strIngredient10,
-      String? strIngredient11,
-      String? strIngredient12,
-      String? strIngredient13,
-      String? strIngredient14,
-      String? strIngredient15,
+      List<dynamic>? strIngredients,
       String? strMeasure1,
       String? strMeasure2,
       String? strMeasure3,
@@ -172,21 +130,7 @@ class FullDataDrink {
     _strInstructionsZHHANS = strInstructionsZHHANS;
     _strInstructionsZHHANT = strInstructionsZHHANT;
     _strDrinkThumb = strDrinkThumb;
-    _strIngredient1 = strIngredient1;
-    _strIngredient2 = strIngredient2;
-    _strIngredient3 = strIngredient3;
-    _strIngredient4 = strIngredient4;
-    _strIngredient5 = strIngredient5;
-    _strIngredient6 = strIngredient6;
-    _strIngredient7 = strIngredient7;
-    _strIngredient8 = strIngredient8;
-    _strIngredient9 = strIngredient8;
-    _strIngredient10 = strIngredient10;
-    _strIngredient11 = strIngredient11;
-    _strIngredient12 = strIngredient12;
-    _strIngredient13 = strIngredient13;
-    _strIngredient14 = strIngredient14;
-    _strIngredient15 = strIngredient15;
+    _strIngredients = strIngredients;
     _strMeasure1 = strMeasure1;
     _strMeasure2 = strMeasure2;
     _strMeasure3 = strMeasure3;
@@ -226,21 +170,12 @@ class FullDataDrink {
     _strInstructionsZHHANS = json['strInstructionsZH-HANS'];
     _strInstructionsZHHANT = json['strInstructionsZH-HANT'];
     _strDrinkThumb = json['strDrinkThumb'];
-    _strIngredient1 = json['strIngredient1'];
-    _strIngredient2 = json['strIngredient2'];
-    _strIngredient3 = json['strIngredient3'];
-    _strIngredient4 = json['strIngredient4'];
-    _strIngredient5 = json['strIngredient5'];
-    _strIngredient6 = json['strIngredient6'];
-    _strIngredient7 = json['strIngredient7'];
-    _strIngredient8 = json['strIngredient8'];
-    _strIngredient9 = json['strIngredient9'];
-    _strIngredient10 = json['strIngredient10'];
-    _strIngredient11 = json['strIngredient11'];
-    _strIngredient12 = json['strIngredient12'];
-    _strIngredient13 = json['strIngredient13'];
-    _strIngredient14 = json['strIngredient14'];
-    _strIngredient15 = json['strIngredient15'];
+    _strIngredients = [json['strIngredient1'], json['strIngredient2'],
+    json['strIngredient3'], json['strIngredient4'], json['strIngredient5'],
+    json['strIngredient6'], json['strIngredient7'], json['strIngredient8'],
+    json['strIngredient9'], json['strIngredient10'], json['strIngredient11'],
+    json['strIngredient12'], json['strIngredient13'], json['strIngredient14'],
+    json['strIngredient15']];
     _strMeasure1 = json['strMeasure1'];
     _strMeasure2 = json['strMeasure2'];
     _strMeasure3 = json['strMeasure3'];
@@ -281,21 +216,6 @@ class FullDataDrink {
     map['strInstructionsZH-HANS'] = _strInstructionsZHHANS;
     map['strInstructionsZH-HANT'] = _strInstructionsZHHANT;
     map['strDrinkThumb'] = _strDrinkThumb;
-    map['strIngredient1'] = _strIngredient1;
-    map['strIngredient2'] = _strIngredient2;
-    map['strIngredient3'] = _strIngredient3;
-    map['strIngredient4'] = _strIngredient4;
-    map['strIngredient5'] = _strIngredient5;
-    map['strIngredient6'] = _strIngredient6;
-    map['strIngredient7'] = _strIngredient7;
-    map['strIngredient8'] = _strIngredient8;
-    map['strIngredient9'] = _strIngredient9;
-    map['strIngredient10'] = _strIngredient10;
-    map['strIngredient11'] = _strIngredient11;
-    map['strIngredient12'] = _strIngredient12;
-    map['strIngredient13'] = _strIngredient13;
-    map['strIngredient14'] = _strIngredient14;
-    map['strIngredient15'] = _strIngredient15;
     map['strMeasure1'] = _strMeasure1;
     map['strMeasure2'] = _strMeasure2;
     map['strMeasure3'] = _strMeasure3;

@@ -48,7 +48,7 @@ class _CategoriesListState extends State<CategoriesList> {
           child: Container(
               padding: const EdgeInsets.all(30),
               child: StaggeredGridView.countBuilder(
-                crossAxisCount: 3,
+                crossAxisCount: 2,
                 itemCount: _categories?.length,
                 itemBuilder: (context, index) {
                   return Card(
