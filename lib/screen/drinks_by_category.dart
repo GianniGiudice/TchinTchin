@@ -9,9 +9,10 @@ import 'package:tchintchin/jsondart/drink.dart';
 import 'package:tchintchin/screen/cocktail.dart';
 
 class DrinksByCategory extends StatefulWidget {
-  final String category;
+  final String? category;
 
-  const DrinksByCategory({Key? key, required this.category}) : super(key: key);
+  const DrinksByCategory({Key? key, required String? this.category})
+      : super(key: key);
 
   @override
   _DrinksByCategoryState createState() => _DrinksByCategoryState();
@@ -23,7 +24,7 @@ class _DrinksByCategoryState extends State<DrinksByCategory> {
   Future<void> _getCategoryDrinks() async {
     var uri = Uri.parse(
         "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" +
-            widget.category);
+            widget.category!);
     var responseFromApi = await http.get(uri);
 
     if (responseFromApi.statusCode == 200) {
@@ -43,7 +44,7 @@ class _DrinksByCategoryState extends State<DrinksByCategory> {
             icon: Icon(Icons.chevron_left),
             onPressed: () => Navigator.pop(context, false),
           ),
-          title: Text('Liste des cocktails de type ' + widget.category,
+          title: Text('Liste des cocktails de type ' + widget.category!,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 25,
