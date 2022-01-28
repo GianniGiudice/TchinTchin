@@ -62,7 +62,7 @@ class _DrinksByCategoryState extends State<DrinksByCategory> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
                                 builder: (context) => Cocktail(
                                     idDrink:
                                         _drinks![index].idDrink!.toString())));

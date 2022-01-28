@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +19,8 @@ class Cocktail extends StatefulWidget {
 
 class _CocktailState extends State<Cocktail> {
   List<FullDataDrink>? _drinks = [];
-  FullDataDrink? drink;
-  List? likes;
+  FullDataDrink drink = new FullDataDrink();
+  List likes = [];
   User? user = FirebaseAuth.instance.currentUser;
   bool hasLiked = false;
   DatabaseReference ref = FirebaseDatabase.instance.ref('likes');
@@ -36,14 +35,14 @@ class _CocktailState extends State<Cocktail> {
       setState(() {
         DrinkFullDataArray list =
             DrinkFullDataArray.fromJson(jsonDecode(responseFromApi.body));
-        _drinks = list.drinks!;
-        drink = _drinks?[0];
+        _drinks = list.drinks;
+        drink = _drinks![0];
       });
     }
   }
 
   void _searchForUserId() {
-    if (likes!.indexWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!)) != -1) {
+    if (likes.indexWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!)) != -1) {
       setState(() {
         hasLiked = true;
       });
@@ -57,9 +56,8 @@ class _CocktailState extends State<Cocktail> {
 
   void addLike() {
     // Si on on ne trouve pas, alors on peut ajouter le like
-    if (likes!.indexWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!)) == -1) {
-      log(user!.uid.toString());
-      likes!.add({"user_id": user!.uid, "cocktail_id": widget.idDrink!});
+    if (likes.indexWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!)) == -1) {
+      likes.add({"user_id": user!.uid, "cocktail_id": widget.idDrink!});
     }
   }
 
@@ -70,10 +68,10 @@ class _CocktailState extends State<Cocktail> {
       addLike();
     }
     else {
-      likes!.removeWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!));
+      likes.removeWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!));
     }
     List result = [];
-    likes!.forEach((item) {
+    likes.forEach((item) {
       result.add(toJson(item));
     });
     ref.set(result);
@@ -91,7 +89,7 @@ class _CocktailState extends State<Cocktail> {
         Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage(drink!.strDrinkThumb!),
+                    image: NetworkImage(drink.strDrinkThumb!),
                     fit: BoxFit.cover))),
         Align(
             alignment: Alignment.topRight,
@@ -112,14 +110,14 @@ class _CocktailState extends State<Cocktail> {
                   padding: const EdgeInsets.all(30),
                   color: const Color(0xfffafafa),
                   child: Column(children: [
-                    Text(drink!.strDrink!,
+                    Text(drink.strDrink!,
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: Wrap(children: [
                           for (var i = 0; i < 15; i++)
-                            MiniListItem(text: drink!.strIngredients![i])
+                            MiniListItem(text: drink.strIngredients![i])
                         ]))
                   ]))))
     ]));
