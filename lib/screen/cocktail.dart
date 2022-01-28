@@ -40,30 +40,43 @@ class _CocktailState extends State<Cocktail> {
   @override
   Widget build(BuildContext context) {
     _getDrinkFullData();
-    return Scaffold(
-        body: Column(children: [
-      Expanded(
-          child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(drink!.strDrinkThumb!),
-                      fit: BoxFit.cover)))),
-      Expanded(
-          child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                  padding: const EdgeInsets.all(30),
-                  color: const Color(0xfffafafa),
-                  child: Column(children: [
-                    Text(drink!.strDrink!,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        child: Wrap(children: [
-                          for (var i = 0; i < 15; i++) MiniListItem(text: drink!.strIngredients![i])
-                        ]))
-                  ]))))
-    ]));
+    return Scaffold(body: _cocktail());
+  }
+
+  Widget _cocktail() {
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
+          SliverAppBar(
+            foregroundColor: Colors.black,
+            expandedHeight: MediaQuery.of(context).size.height / 2,
+            backgroundColor: Colors.transparent,
+            floating: false,
+            pinned: true,
+            snap: false,
+            flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                //titlePadding: EdgeInsetsDirectional.all(0),
+                title: Text(
+                  drink!.strDrink!,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                background: Image.network(
+                  drink!.strDrinkThumb!,
+                  fit: BoxFit.cover,
+                )),
+          ),
+        ];
+      },
+      body: Container(
+          margin: const EdgeInsets.only(top: 20),
+          child: Wrap(children: [
+            for (var i = 0; i < 15; i++)
+              MiniListItem(text: drink!.strIngredients![i])
+          ])),
+    );
   }
 }
