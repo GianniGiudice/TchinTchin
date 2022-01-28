@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tchintchin/jsondart/drink_full_data_array.dart';
 import 'package:tchintchin/jsondart/full_data_drink.dart';
 import 'package:tchintchin/widget/mini_list_item.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class Cocktail extends StatefulWidget {
   final String? idDrink;
@@ -20,6 +20,7 @@ class Cocktail extends StatefulWidget {
 class _CocktailState extends State<Cocktail> {
   List<FullDataDrink>? _drinks = [];
   FullDataDrink? drink;
+  List? likes;
 
   Future<void> _getDrinkFullData() async {
     var uri = Uri.parse(
@@ -37,9 +38,16 @@ class _CocktailState extends State<Cocktail> {
     }
   }
 
+  void _getCurrentLikes() async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref('likes');
+    DatabaseEvent event = await ref.once();
+    likes = jsonDecode(jsonEncode(event.snapshot.value));
+  }
+
   @override
   Widget build(BuildContext context) {
     _getDrinkFullData();
+    _getCurrentLikes();
     return Scaffold(
         body: Column(children: [
       Expanded(
