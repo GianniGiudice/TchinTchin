@@ -11,7 +11,8 @@ import 'package:tchintchin/screen/cocktail.dart';
 class DrinksByCategory extends StatefulWidget {
   final String? category;
 
-  const DrinksByCategory({Key? key, required String? this.category}) : super(key: key);
+  const DrinksByCategory({Key? key, required String? this.category})
+      : super(key: key);
 
   @override
   _DrinksByCategoryState createState() => _DrinksByCategoryState();
@@ -38,46 +39,52 @@ class _DrinksByCategoryState extends State<DrinksByCategory> {
   Widget build(BuildContext context) {
     _getCategoryDrinks();
     return Scaffold(
-        body: Column(children: [
-      Container(
-          margin: const EdgeInsets.all(15),
-          child: Text('Liste des cocktails de type ' + widget.category!,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.chevron_left),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          title: Text('Liste des cocktails de type ' + widget.category!,
               style: TextStyle(
-                  fontSize: 30,
-                  color: const Color(0xff37718E),
-                  fontWeight: FontWeight.bold))),
-      Expanded(
-          child: Container(
-              padding: const EdgeInsets.all(30),
-              child: StaggeredGridView.countBuilder(
-                crossAxisCount: 2,
-                itemCount: _drinks?.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Cocktail(
-                                idDrink: _drinks![index].idDrink!.toString())));
-                      },
-                      child: Card(
-                        child: Container(
-                            padding: const EdgeInsets.all(15),
-                            child: FittedBox(
-                              child: ConstrainedBox(
-                                  constraints:
-                                      BoxConstraints(minWidth: 1, minHeight: 1),
-                                  // here
-                                  child: Image.network(
-                                    _drinks?[index].strDrinkThumb ?? "",
-                                  )),
-                              fit: BoxFit.fill,
-                            ))))
-                  ;
-                },
-                staggeredTileBuilder: (int index) {
-                  return StaggeredTile.count(1, 1);
-                },
-              )))
-    ]));
+                color: Colors.white,
+                fontSize: 25,
+              )),
+          centerTitle: true,
+          backgroundColor: const Color(0xff37718E),
+        ),
+        body: Column(children: [
+          Expanded(
+              child: Container(
+                  padding: const EdgeInsets.all(30),
+                  child: StaggeredGridView.countBuilder(
+                    crossAxisCount: 2,
+                    itemCount: _drinks?.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Cocktail(
+                                    idDrink:
+                                        _drinks![index].idDrink!.toString())));
+                          },
+                          child: Card(
+                              child: Container(
+                                  padding: const EdgeInsets.all(15),
+                                  child: FittedBox(
+                                    child: ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                            minWidth: 1, minHeight: 1),
+                                        // here
+                                        child: Image.network(
+                                          _drinks?[index].strDrinkThumb ?? "",
+                                        )),
+                                    fit: BoxFit.fill,
+                                  ))));
+                    },
+                    staggeredTileBuilder: (int index) {
+                      return StaggeredTile.count(1, 1);
+                    },
+                  )))
+        ]));
   }
 }

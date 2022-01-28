@@ -31,56 +31,69 @@ class _CategoriesListState extends State<CategoriesList> {
     }
   }
 
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     _getAllCategories();
 
     return Scaffold(
-        body: Column(children: [
-      Container(
-          margin: const EdgeInsets.all(15),
-          child: Text('Liste des catégories',
+        appBar: AppBar(
+          title: Text('Liste des catégories',
               style: TextStyle(
-                  fontSize: 30,
-                  color: const Color(0xff37718E),
-                  fontWeight: FontWeight.bold))),
-      Expanded(
-          child: Container(
-              padding: const EdgeInsets.all(30),
-              child: StaggeredGridView.countBuilder(
-                crossAxisCount: 2,
-                itemCount: _categories?.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                      child: Container(
-                          padding: const EdgeInsets.all(15),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ListTile(
-                                  title: Text(
-                                      _categories?[index].strCategory ?? "VIDE",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                          fontWeight: FontWeight.bold)),
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                DrinksByCategory(
-                                                    category:
-                                                        _categories![index]
+                color: Colors.white,
+                fontSize: 25,
+              )),
+          centerTitle: true,
+          backgroundColor: const Color(0xff37718E),
+        ),
+        body: Column(children: [
+          Expanded(
+              child: Container(
+                  padding: const EdgeInsets.all(30),
+                  child: StaggeredGridView.countBuilder(
+                    crossAxisCount: 2,
+                    itemCount: _categories?.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          child: Container(
+                              padding: const EdgeInsets.all(15),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    ListTile(
+                                      title: Text(
+                                          _categories?[index].strCategory ??
+                                              "VIDE",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold)),
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DrinksByCategory(
+                                                        category: _categories![
+                                                                index]
                                                             .strCategory!)));
-                                  },
-                                )
-                              ])));
-                },
-                staggeredTileBuilder: (int index) {
-                  return StaggeredTile.count(1, 1);
-                },
-              )))
-    ]));
+                                      },
+                                    )
+                                  ])));
+                    },
+                    staggeredTileBuilder: (int index) {
+                      return StaggeredTile.count(1, 1);
+                    },
+                  )))
+        ]));
   }
 }
