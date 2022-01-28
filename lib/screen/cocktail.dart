@@ -23,6 +23,8 @@ class _CocktailState extends State<Cocktail> {
   FullDataDrink? drink;
   List? likes;
   User? user = FirebaseAuth.instance.currentUser;
+  bool hasLiked = false;
+  DatabaseReference ref = FirebaseDatabase.instance.ref('likes');
 
   Future<void> _getDrinkFullData() async {
     var uri = Uri.parse(
@@ -40,25 +42,69 @@ class _CocktailState extends State<Cocktail> {
     }
   }
 
+  void _searchForUserId() {
+    if (likes!.indexWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!)) != -1) {
+      setState(() {
+        hasLiked = true;
+      });
+    }
+  }
+
   void _getCurrentLikes() async {
-    log(user!.email!);
-    DatabaseReference ref = FirebaseDatabase.instance.ref('likes');
     DatabaseEvent event = await ref.once();
     likes = jsonDecode(jsonEncode(event.snapshot.value));
+  }
+
+  void addLike() {
+    // Si on on ne trouve pas, alors on peut ajouter le like
+    if (likes!.indexWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!)) == -1) {
+      log(user!.uid.toString());
+      likes!.add({"user_id": user!.uid, "cocktail_id": widget.idDrink!});
+    }
+  }
+
+  Map<String, dynamic> toJson(item) => {'user_id': item['user_id'], 'cocktail_id': item['cocktail_id']};
+
+  void updateLikeUserStatus() {
+    if (!hasLiked) {
+      addLike();
+    }
+    else {
+      likes!.removeWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!));
+    }
+    List result = [];
+    likes!.forEach((item) {
+      result.add(toJson(item));
+    });
+    ref.set(result);
   }
 
   @override
   Widget build(BuildContext context) {
     _getDrinkFullData();
     _getCurrentLikes();
+    _searchForUserId();
     return Scaffold(
         body: Column(children: [
       Expanded(
-          child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(drink!.strDrinkThumb!),
-                      fit: BoxFit.cover)))),
+          child: Stack(children: [
+        Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(drink!.strDrinkThumb!),
+                    fit: BoxFit.cover))),
+        Align(
+            alignment: Alignment.topRight,
+            child: GestureDetector(
+                onTap: () {
+                  updateLikeUserStatus();
+                  setState(() {
+                    hasLiked = !hasLiked;
+                  });
+                },
+                child: Icon(Icons.favorite,
+                    color: hasLiked ? Colors.red : Colors.black, size: 40)))
+      ])),
       Expanded(
           child: Align(
               alignment: Alignment.centerLeft,
@@ -72,7 +118,8 @@ class _CocktailState extends State<Cocktail> {
                     Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: Wrap(children: [
-                          for (var i = 0; i < 15; i++) MiniListItem(text: drink!.strIngredients![i])
+                          for (var i = 0; i < 15; i++)
+                            MiniListItem(text: drink!.strIngredients![i])
                         ]))
                   ]))))
     ]));
