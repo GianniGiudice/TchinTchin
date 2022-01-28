@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -21,6 +22,7 @@ class _CocktailState extends State<Cocktail> {
   List<FullDataDrink>? _drinks = [];
   FullDataDrink? drink;
   List? likes;
+  User? user = FirebaseAuth.instance.currentUser;
 
   Future<void> _getDrinkFullData() async {
     var uri = Uri.parse(
@@ -39,6 +41,7 @@ class _CocktailState extends State<Cocktail> {
   }
 
   void _getCurrentLikes() async {
+    log(user!.email!);
     DatabaseReference ref = FirebaseDatabase.instance.ref('likes');
     DatabaseEvent event = await ref.once();
     likes = jsonDecode(jsonEncode(event.snapshot.value));
