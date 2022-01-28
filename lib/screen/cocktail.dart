@@ -9,9 +9,9 @@ import 'package:tchintchin/jsondart/full_data_drink.dart';
 import 'package:tchintchin/widget/mini_list_item.dart';
 
 class Cocktail extends StatefulWidget {
-  final String idDrink;
+  final String? idDrink;
 
-  const Cocktail({Key? key, required this.idDrink}) : super(key: key);
+  const Cocktail({Key? key, required String? this.idDrink}) : super(key: key);
 
   @override
   _CocktailState createState() => _CocktailState();
@@ -24,7 +24,7 @@ class _CocktailState extends State<Cocktail> {
   Future<void> _getDrinkFullData() async {
     var uri = Uri.parse(
         "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" +
-            widget.idDrink);
+            widget.idDrink!);
     var responseFromApi = await http.get(uri);
 
     if (responseFromApi.statusCode == 200) {

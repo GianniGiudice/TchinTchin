@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class MiniListItem extends StatefulWidget {
   final String? text;
 
-  const MiniListItem({Key? key, required this.text}) : super(key: key);
+  const MiniListItem({Key? key, required String? this.text}) : super(key: key);
 
   @override
   _MiniListItemState createState() => _MiniListItemState();
