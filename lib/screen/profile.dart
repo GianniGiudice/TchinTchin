@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tchintchin/screen/homepage.dart';
+import 'package:tchintchin/service/database.dart';
 
 
 class Profile extends StatefulWidget {
@@ -19,15 +20,22 @@ class _ProfileState extends State<Profile> {
 
   void init() async {
     auth = FirebaseAuth.instance;
-    setState(() {
-      user = auth!.currentUser;
-    });
+    user = auth!.currentUser;
   }
 
   @override
   Widget build(BuildContext context) {
     init();
     return Scaffold(
+        appBar: AppBar(
+          title: Text('Profil',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+              )),
+          centerTitle: true,
+          backgroundColor: const Color(0xff37718E),
+        ),
         body: Container(
             padding: EdgeInsets.all(15),
             child:
@@ -40,15 +48,15 @@ class _ProfileState extends State<Profile> {
                         'Bienvenue ' +
                             (user != null ? user!.email! : '') +
                             ' !',
-                        textAlign: TextAlign.left,
+                        textAlign: TextAlign.left, style: TextStyle(fontSize: 18),
                       ))),
               Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                       child: Text('ID utilisateur : ' +
-                          (user != null ? user!.uid : '')))),
+                          (user != null ? user!.uid : ''), style: TextStyle(fontSize: 18),))),
               Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: EdgeInsets.only(top: 30),
                 child:
               ElevatedButton(
                   style: ElevatedButton.styleFrom(

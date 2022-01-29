@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tchintchin/jsondart/drink_full_data_array.dart';
 import 'package:tchintchin/jsondart/full_data_drink.dart';
+import 'package:tchintchin/service/database.dart';
 import 'package:tchintchin/widget/mini_list_item.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -24,13 +26,24 @@ class _CocktailState extends State<Cocktail> {
   FirebaseAuth? auth;
   User? user;
   bool hasLiked = false;
-  DatabaseReference ref = FirebaseDatabase.instance.ref('likes');
+  Database dbService = new Database();
 
-  void init() async {
+  checkRefreshData() async {
+    await refreshData();
+    _searchForUserId();
+    _getDrinkFullData();
+  }
+
+  Future<void> refreshData() async {
+    DataSnapshot snapshot = await dbService.getLikes();
+    likes = jsonDecode(jsonEncode(snapshot.value));
+  }
+
+  void initState() {
+    super.initState();
     auth = FirebaseAuth.instance;
-    setState(() {
-      user = auth!.currentUser;
-    });
+    user = auth!.currentUser;
+    checkRefreshData();
   }
 
   Future<void> _getDrinkFullData() async {
@@ -42,7 +55,7 @@ class _CocktailState extends State<Cocktail> {
     if (responseFromApi.statusCode == 200) {
       setState(() {
         DrinkFullDataArray list =
-            DrinkFullDataArray.fromJson(jsonDecode(responseFromApi.body));
+        DrinkFullDataArray.fromJson(jsonDecode(responseFromApi.body));
         _drinks = list.drinks;
         drink = _drinks![0];
       });
@@ -55,11 +68,6 @@ class _CocktailState extends State<Cocktail> {
         hasLiked = true;
       });
     }
-  }
-
-  void _getCurrentLikes() async {
-    DatabaseEvent event = await ref.once();
-    likes = jsonDecode(jsonEncode(event.snapshot.value));
   }
 
   void addLike() {
@@ -75,22 +83,22 @@ class _CocktailState extends State<Cocktail> {
     if (!hasLiked) {
       addLike();
     }
-    else {
+    else if (likes.indexWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!)) != -1) {
       likes.removeWhere((element) => (element['user_id'] == user!.uid && element['cocktail_id'] == widget.idDrink!));
     }
     List result = [];
     likes.forEach((item) {
       result.add(toJson(item));
     });
-    ref.set(result);
+    dbService.updateLikes(result);
+    setState(() {
+      hasLiked = !hasLiked;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    init();
-    _getDrinkFullData();
-    _getCurrentLikes();
-    _searchForUserId();
+    log(hasLiked ? 'true' : 'false');
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -118,12 +126,9 @@ class _CocktailState extends State<Cocktail> {
             child: GestureDetector(
                 onTap: () {
                   updateLikeUserStatus();
-                  setState(() {
-                    hasLiked = !hasLiked;
-                  });
                 },
                 child: Icon(Icons.favorite,
-                    color: hasLiked ? Colors.red : Colors.black, size: 40)))
+                    color: hasLiked ? Colors.red : Color(0xffd3d3d3), size: 40)))
       ])),
       Expanded(
           child: Align(
