@@ -22,13 +22,13 @@ class _SearchState extends State<Search> {
 
   Future<void> _getDrinksByFilter(String filter) async {
     var uri = Uri.parse(
-        "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + filter
-    );
+        "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + filter);
     var responseFromApi = await http.get(uri);
 
     if (responseFromApi.statusCode == 200) {
       setState(() {
-        DrinkFullDataArray list = DrinkFullDataArray.fromJson(jsonDecode(responseFromApi.body));
+        DrinkFullDataArray list =
+            DrinkFullDataArray.fromJson(jsonDecode(responseFromApi.body));
         _drinks = list.drinks!;
       });
     }
@@ -56,71 +56,88 @@ class _SearchState extends State<Search> {
                   child: Container(
                       margin: EdgeInsets.only(bottom: 15),
                       child: TextField(
-                          obscureText: true,
                           controller: _searchController,
                           decoration: InputDecoration(
                               labelText: 'Recherche',
-                            focusedBorder: const OutlineInputBorder(
-                              borderSide: const BorderSide(color: const Color(0xff37718E))
-                            ),
+                              focusedBorder: const OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: const Color(0xff37718E))),
                               hintStyle: TextStyle(
-                                color: const Color(0xff37718E),
-                                fontSize: 18,
-                                fontStyle: FontStyle.italic
-                              ),
-                          labelStyle: TextStyle(color: const Color(0xff37718E)))))),
-              Align(alignment: Alignment.centerLeft, child: Container(
-                  width: double.infinity,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        minimumSize:
-                        Size(MediaQuery.of(context).size.width * 0.65, 50),
-                        primary: const Color(0xff37718E),
-                        onPrimary: const Color(0xffffffff)),
-                    child: Text('Valider'),
-                    onPressed: () async {
-                      var search =
-                          _searchController
-                              .value.text;
-                      _getDrinksByFilter(search);
-                    })
-              )),
-              Container(child: Expanded(
-    child: Container(
-    padding: const EdgeInsets.all(30), child: _drinks == null ? Text('') : StaggeredGridView.countBuilder(
-                crossAxisCount: 2,
-                itemCount: _drinks?.length,
-                itemBuilder: (context, index) {
-                  return Card(
+                                  color: const Color(0xff37718E),
+                                  fontSize: 18,
+                                  fontStyle: FontStyle.italic),
+                              labelStyle:
+                                  TextStyle(color: const Color(0xff37718E)))))),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: Size(
+                                  MediaQuery.of(context).size.width * 0.65, 50),
+                              primary: const Color(0xff37718E),
+                              onPrimary: const Color(0xffffffff)),
+                          child: Text('Valider'),
+                          onPressed: () async {
+                            var search = _searchController.value.text;
+                            _getDrinksByFilter(search);
+                          }))),
+              Container(
+                  child: Expanded(
                       child: Container(
-                          padding: const EdgeInsets.all(15),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ListTile(
-                                  title: Text(
-                                      _drinks?[index].strDrink ??
-                                          "VIDE",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold)),
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Cocktail(idDrink:
-                                                    _drinks![index].idDrink!.toString()
-                                                )));
+                          padding: const EdgeInsets.all(30),
+                          child: _drinks == null
+                              ? Text('')
+                              : StaggeredGridView.countBuilder(
+                                  crossAxisCount: 2,
+                                  itemCount: _drinks?.length,
+                                  itemBuilder: (context, index) {
+                                    return Card(
+                                        child: Container(
+                                            padding: const EdgeInsets.all(15),
+                                            child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  ListTile(
+                                                    title: Text(
+                                                        _drinks?[index]
+                                                                .strDrink ??
+                                                            "VIDE",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                    onTap: () {
+                                                      Navigator.of(context).push(
+                                                          MaterialPageRoute(
+                                                              builder: (context) => Cocktail(
+                                                                  idDrink: _drinks![
+                                                                          index]
+                                                                      .idDrink!
+                                                                      .toString())));
+                                                    },
+                                                  ),
+                                                  AspectRatio(
+                                                    child: Image.network(
+                                                        _drinks?[index]
+                                                                .strDrinkThumb ??
+                                                            "",
+                                                        fit: BoxFit.cover),
+                                                    aspectRatio: 2 / 1.5,
+                                                  )
+                                                ])));
                                   },
-                                )
-                              ])));
-                },
-                staggeredTileBuilder: (int index) {
-                  return StaggeredTile.count(1, 1);
-                },
-              ))))
+                                  staggeredTileBuilder: (int index) {
+                                    return StaggeredTile.count(1, 1);
+                                  },
+                                ))))
             ])));
   }
 }
