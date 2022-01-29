@@ -21,9 +21,17 @@ class _CocktailState extends State<Cocktail> {
   List<FullDataDrink>? _drinks = [];
   FullDataDrink drink = new FullDataDrink();
   List likes = [];
-  User? user = FirebaseAuth.instance.currentUser;
+  FirebaseAuth? auth;
+  User? user;
   bool hasLiked = false;
   DatabaseReference ref = FirebaseDatabase.instance.ref('likes');
+
+  void init() async {
+    auth = FirebaseAuth.instance;
+    setState(() {
+      user = auth!.currentUser;
+    });
+  }
 
   Future<void> _getDrinkFullData() async {
     var uri = Uri.parse(
@@ -79,6 +87,7 @@ class _CocktailState extends State<Cocktail> {
 
   @override
   Widget build(BuildContext context) {
+    init();
     _getDrinkFullData();
     _getCurrentLikes();
     _searchForUserId();
@@ -89,7 +98,7 @@ class _CocktailState extends State<Cocktail> {
         Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage(drink.strDrinkThumb!),
+                    image: drink.strDrinkThumb != null ? NetworkImage(drink.strDrinkThumb!) : NetworkImage("https://www.thecocktaildb.com/images/media/drink/yqvvqs1475667388.jpg"),
                     fit: BoxFit.cover))),
         Align(
             alignment: Alignment.topRight,
@@ -110,14 +119,14 @@ class _CocktailState extends State<Cocktail> {
                   padding: const EdgeInsets.all(30),
                   color: const Color(0xfffafafa),
                   child: Column(children: [
-                    Text(drink.strDrink!,
+                    Text(drink.strDrink != null ? drink.strDrink! : '',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: Wrap(children: [
                           for (var i = 0; i < 15; i++)
-                            MiniListItem(text: drink.strIngredients![i])
+                            MiniListItem(text: drink.strIngredients != null && drink.strIngredients![i] != null ? drink.strIngredients![i] : '')
                         ]))
                   ]))))
     ]));

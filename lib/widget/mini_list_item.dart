@@ -14,7 +14,7 @@ class _MiniListItemState extends State<MiniListItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: widget.text != null ? const Color(0xff37718E) : Colors.transparent,
+        color: widget.text != null && widget.text != '' ? const Color(0xff37718E) : Colors.transparent,
         padding: EdgeInsets.all(8),
         margin: EdgeInsets.all(8),
         child:
