@@ -28,6 +28,7 @@ class _ProfileState extends State<Profile> {
     init();
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text('Profil',
               style: TextStyle(
                 color: Colors.white,

@@ -61,12 +61,14 @@ class _RegistrationState extends State<Registration> {
                                         Icons.supervisor_account,
                                         color: Color(0xff1C8D5A),
                                       ),
+                                      Flexible(child: Container(child:
                                       Text(
-                                        'Vous êtes bien enregistré, vous pouvez dès à présent vous connecter.',
+                                        'Vous pouvez vous connecter.',
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             color: Color(0xff1C8D5A),
                                             fontSize: 20),
-                                      )
+                                      )))
                                     ],
                                   ))
                               : Text(''),

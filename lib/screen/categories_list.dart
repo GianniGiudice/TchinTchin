@@ -37,6 +37,7 @@ class _CategoriesListState extends State<CategoriesList> {
 
     return Scaffold(
         appBar: AppBar(
+        automaticallyImplyLeading: false,
           title: Text('Liste des catégories',
               style: TextStyle(
                 color: Colors.white,
