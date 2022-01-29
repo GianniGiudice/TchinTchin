@@ -92,6 +92,19 @@ class _CocktailState extends State<Cocktail> {
     _getCurrentLikes();
     _searchForUserId();
     return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.chevron_left, color: Colors.white),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          title: Text(drink.strDrink != null ? drink.strDrink! : '',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+              )),
+          centerTitle: true,
+          backgroundColor: const Color(0xff37718E),
+        ),
         body: Column(children: [
       Expanded(
           child: Stack(children: [
@@ -119,9 +132,6 @@ class _CocktailState extends State<Cocktail> {
                   padding: const EdgeInsets.all(30),
                   color: const Color(0xfffafafa),
                   child: Column(children: [
-                    Text(drink.strDrink != null ? drink.strDrink! : '',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
                     Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: Wrap(children: [

@@ -41,10 +41,10 @@ class _DrinksByCategoryState extends State<DrinksByCategory> {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.chevron_left),
+            icon: Icon(Icons.chevron_left, color: Colors.white),
             onPressed: () => Navigator.pop(context, false),
           ),
-          title: Text('Liste des cocktails de type ' + widget.category!,
+          title: Text(widget.category!,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 25,
@@ -62,7 +62,7 @@ class _DrinksByCategoryState extends State<DrinksByCategory> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => Cocktail(
                                     idDrink:
                                         _drinks![index].idDrink!.toString())));

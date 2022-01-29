@@ -22,7 +22,7 @@ class _MainState extends State<Main> {
   static const List<Widget> _widgetOptions = <Widget>[
     CategoriesList(),
     Text(
-      'Index 1: Business',
+      'Recherche',
     ),
     Profile()
   ];
