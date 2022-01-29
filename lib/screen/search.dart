@@ -93,46 +93,51 @@ class _SearchState extends State<Search> {
                                   crossAxisCount: 2,
                                   itemCount: _drinks?.length,
                                   itemBuilder: (context, index) {
-                                    return Card(
-                                        child: Container(
-                                            padding: const EdgeInsets.all(15),
-                                            child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  ListTile(
-                                                    title: Text(
-                                                        _drinks?[index]
-                                                                .strDrink ??
-                                                            "VIDE",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                    onTap: () {
-                                                      Navigator.of(context).push(
-                                                          MaterialPageRoute(
-                                                              builder: (context) => Cocktail(
-                                                                  idDrink: _drinks![
-                                                                          index]
-                                                                      .idDrink!
-                                                                      .toString())));
-                                                    },
-                                                  ),
-                                                  AspectRatio(
-                                                    child: Image.network(
-                                                        _drinks?[index]
-                                                                .strDrinkThumb ??
-                                                            "",
-                                                        fit: BoxFit.cover),
-                                                    aspectRatio: 2 / 1.5,
-                                                  )
-                                                ])));
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Cocktail(
+                                                          idDrink: _drinks![
+                                                                  index]
+                                                              .idDrink!
+                                                              .toString())));
+                                        },
+                                        child: Card(
+                                            child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(15),
+                                                child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      ListTile(
+                                                          title: Text(
+                                                              _drinks?[index]
+                                                                      .strDrink ??
+                                                                  "VIDE",
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize: 20,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold))),
+                                                      AspectRatio(
+                                                        child: Image.network(
+                                                            _drinks?[index]
+                                                                    .strDrinkThumb ??
+                                                                "",
+                                                            fit: BoxFit.cover),
+                                                        aspectRatio: 2 / 1.5,
+                                                      )
+                                                    ]))));
                                   },
                                   staggeredTileBuilder: (int index) {
                                     return StaggeredTile.count(1, 1);

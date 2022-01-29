@@ -70,16 +70,29 @@ class _DrinksByCategoryState extends State<DrinksByCategory> {
                           child: Card(
                               child: Container(
                                   padding: const EdgeInsets.all(15),
-                                  child: FittedBox(
-                                    child: ConstrainedBox(
-                                        constraints: BoxConstraints(
-                                            minWidth: 1, minHeight: 1),
-                                        // here
-                                        child: Image.network(
-                                          _drinks?[index].strDrinkThumb ?? "",
-                                        )),
-                                    fit: BoxFit.fill,
-                                  ))));
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        ListTile(
+                                            title: Text(
+                                                _drinks?[index].strDrink ??
+                                                    "VIDE",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold))),
+                                        AspectRatio(
+                                          child: Image.network(
+                                              _drinks?[index].strDrinkThumb ??
+                                                  "",
+                                              fit: BoxFit.cover),
+                                          aspectRatio: 2 / 1.5,
+                                        )
+                                      ]))));
                     },
                     staggeredTileBuilder: (int index) {
                       return StaggeredTile.count(1, 1);
