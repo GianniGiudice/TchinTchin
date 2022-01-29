@@ -12,7 +12,6 @@ class Database {
   }
 
   void updateLikes(List likes) {
-    log('C ICI WSH' + likes.toString());
     likesRef.set(likes);
   }
 }
