@@ -98,7 +98,6 @@ class _CocktailState extends State<Cocktail> {
 
   @override
   Widget build(BuildContext context) {
-    log(hasLiked ? 'true' : 'false');
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
