@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tchintchin/screen/main.dart';
 import 'package:tchintchin/screen/registration.dart';
 import 'package:tchintchin/service/authentication.dart';
 
@@ -154,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                               MaterialPageRoute(
                                                                   builder:
                                                                       (context) =>
-                                                                          CategoriesList()));
+                                                                          Main()));
                                                     } else {
                                                       _auth.showErrorAlertDialog(
                                                           context,
