@@ -68,31 +68,30 @@ class _DrinksByCategoryState extends State<DrinksByCategory> {
                                         _drinks![index].idDrink!.toString())));
                           },
                           child: Card(
-                              child: Container(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        ListTile(
-                                            title: Text(
-                                                _drinks?[index].strDrink ??
-                                                    "VIDE",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.bold))),
-                                        AspectRatio(
-                                          child: Image.network(
-                                              _drinks?[index].strDrinkThumb ??
-                                                  "",
-                                              fit: BoxFit.cover),
-                                          aspectRatio: 2 / 1.5,
-                                        )
-                                      ]))));
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            child: Container(
+                              height: 300,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          _drinks?[index].strDrinkThumb ??
+                                              ""))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(_drinks?[index].strDrink ?? "VIDE",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+                            margin: EdgeInsets.only(
+                                left: 20.0, right: 20.0, top: 5.0),
+                          ));
                     },
                     staggeredTileBuilder: (int index) {
                       return StaggeredTile.count(1, 1);
