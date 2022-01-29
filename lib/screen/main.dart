@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tchintchin/screen/categories_list.dart';
 import 'package:tchintchin/screen/profile.dart';
+import 'package:tchintchin/screen/search.dart';
 
 class Main extends StatefulWidget {
   const Main({Key? key}) : super(key: key);
@@ -21,9 +22,7 @@ class _MainState extends State<Main> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     CategoriesList(),
-    Text(
-      'Recherche',
-    ),
+    Search(),
     Profile()
   ];
 
