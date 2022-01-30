@@ -31,11 +31,21 @@ class _CocktailState extends State<Cocktail> {
   Database dbService = new Database();
   TextEditingController _commentController = TextEditingController();
   String likeMessage = '';
+  int nbLikes = 0;
 
   checkRefreshData() async {
     await refreshData();
     _searchForUserId();
     _getDrinkFullData();
+    getNbLikes();
+  }
+
+  getNbLikes() {
+    likes.forEach((element) {
+      if (element['cocktail_id'] == widget.idDrink) {
+        nbLikes++;
+      }
+    });
   }
 
   Future<void> refreshData() async {
@@ -131,9 +141,14 @@ class _CocktailState extends State<Cocktail> {
     dbService.updateLikes(result);
     setState(() {
       hasLiked = !hasLiked;
-      hasLiked
-          ? likeMessage = 'Le cocktail a bien été liké !'
-          : likeMessage = '';
+      if (hasLiked) {
+        nbLikes++;
+        likeMessage = 'Le cocktail a bien été liké !';
+      }
+      else {
+        nbLikes--;
+        likeMessage = '';
+      }
     });
   }
 
@@ -207,6 +222,14 @@ class _CocktailState extends State<Cocktail> {
                               )
                             ])
                           : Text('')))),
+          Container(
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      padding: const EdgeInsets.only(top: 10, left: 30),
+                      color: const Color(0xfffafafa),
+                      child: Text(nbLikes.toString() + ' personne' + (nbLikes > 1 ? 's aiment ce cocktail.' : ' aime ce cocktail.'), style: TextStyle(fontSize: 18, color: Colors.red),)))
+          ),
           Container(
               child: Align(
                   alignment: Alignment.centerLeft,
