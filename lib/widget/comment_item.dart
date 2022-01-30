@@ -14,14 +14,30 @@ class _CommentItemState extends State<CommentItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: widget.comment != null ? const Color(0xff37718E) : Colors.transparent,
         margin: EdgeInsets.only(bottom: 30, top: 30),
-        child:
-            Column(children: [
-              Text(widget.comment.user != null ? widget.comment.user! : '', style: TextStyle(color: Colors.white),),
-              Text(widget.comment.message != null ? widget.comment.message! : '', style: TextStyle(color: Colors.white),)
-            ],)
-    );
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+                child: Column(
+              children: [
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.comment!['user'] != null
+                          ? widget.comment!['user']
+                          : '',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    )),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.comment!['message'] != null
+                          ? widget.comment!['message']
+                          : '',
+                      style: TextStyle(fontSize: 16),
+                    ))
+              ],
+            ))));
   }
-
 }

@@ -222,9 +222,9 @@ class _CocktailState extends State<Cocktail> {
                                             0.65,
                                         50),
                                     primary:
-                                    const Color(0xfffafafa),
+                                    const Color(0xff37718E),
                                     onPrimary: const Color(
-                                        0xff37718E)),
+                                        0xfffafafa)),
                                 onPressed: () async {
                                   updateCommentStatus();
                                 },
