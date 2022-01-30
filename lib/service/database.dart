@@ -4,7 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 class Database {
   DatabaseReference likesRef = FirebaseDatabase.instance.ref("likes");
-  DatabaseReference commentsRef = FirebaseDatabase.instance.ref("avatars");
+  DatabaseReference commentsRef = FirebaseDatabase.instance.ref("comments");
 
   Future<DataSnapshot> getLikes() async {
     DatabaseEvent event = await likesRef.once();

@@ -24,6 +24,7 @@ class _CocktailState extends State<Cocktail> {
   List<FullDataDrink>? _drinks = [];
   FullDataDrink drink = new FullDataDrink();
   List likes = [];
+  List allComments = [];
   List comments = [];
   FirebaseAuth? auth;
   User? user;
@@ -41,16 +42,18 @@ class _CocktailState extends State<Cocktail> {
     DataSnapshot snapshotLikes = await dbService.getLikes();
     DataSnapshot snapshotComments = await dbService.getComments();
     likes = jsonDecode(jsonEncode(snapshotLikes.value));
-    List commentsTmp = jsonDecode(jsonEncode(snapshotComments.value));
-    getCocktailComments(commentsTmp);
+    allComments = jsonDecode(jsonEncode(snapshotComments.value));
+    getCocktailComments();
   }
 
-  void getCocktailComments(List tmp) {
-    tmp.forEach((element) {
+  void getCocktailComments() {
+    comments = [];
+    allComments.forEach((element) {
       if (element['cocktail_id'] == widget.idDrink) {
         comments.add(element);
       }
     });
+    comments = new List.from(comments.reversed);
   }
 
   void initState() {
@@ -96,14 +99,21 @@ class _CocktailState extends State<Cocktail> {
   }
 
   void addComment() {
-    comments.add({"user": user!.email, "cocktail_id": widget.idDrink!, "message": _commentController.value.text});
+    allComments.add({
+      "user": user!.email,
+      "cocktail_id": widget.idDrink!,
+      "message": _commentController.value.text
+    });
   }
 
   Map<String, dynamic> toJson(item) =>
       {'user_id': item['user_id'], 'cocktail_id': item['cocktail_id']};
 
-  Map<String, dynamic> toJsonComment(item) =>
-      {'user': item['user'], 'cocktail_id': item['cocktail_id'], 'message': item['message']};
+  Map<String, dynamic> toJsonComment(item) => {
+        'user': item['user'],
+        'cocktail_id': item['cocktail_id'],
+        'message': item['message']
+      };
 
   void updateLikeUserStatus() {
     if (!hasLiked) {
@@ -124,13 +134,17 @@ class _CocktailState extends State<Cocktail> {
     });
   }
 
-  void updateCommentStatus() {
+  void updateCommentStatus() async {
     addComment();
     List result = [];
-    comments.forEach((element) {
+    allComments.forEach((element) {
       result.add(toJsonComment(element));
     });
     dbService.updateComments(result);
+    setState(() {
+      _commentController.clear();
+      getCocktailComments();
+    });
   }
 
   @override
@@ -149,10 +163,13 @@ class _CocktailState extends State<Cocktail> {
           centerTitle: true,
           backgroundColor: const Color(0xff37718E),
         ),
-        body: Column(children: [
-          Expanded(
+        body: SingleChildScrollView(
+            child: Column(children: [
+          Container(
               child: Stack(children: [
             Container(
+              height: 300,
+                width: double.infinity,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: drink.strDrinkThumb != null
@@ -160,7 +177,7 @@ class _CocktailState extends State<Cocktail> {
                             : NetworkImage(
                                 "https://www.thecocktaildb.com/images/media/drink/yqvvqs1475667388.jpg"),
                         fit: BoxFit.cover))),
-            Align(
+            Container(
                 alignment: Alignment.topRight,
                 child: GestureDetector(
                     onTap: () {
@@ -170,7 +187,7 @@ class _CocktailState extends State<Cocktail> {
                         color: hasLiked ? Colors.red : Color(0xffd3d3d3),
                         size: 40)))
           ])),
-          Expanded(
+          Container(
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
@@ -188,51 +205,44 @@ class _CocktailState extends State<Cocktail> {
                                         : '')
                             ]))
                       ])))),
-          Expanded(
+          Container(
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                       padding: const EdgeInsets.all(30),
                       color: const Color(0xfffafafa),
                       child: Column(children: [
-                        Text('Commenter', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                         TextFormField(
                           decoration: InputDecoration(
-                              focusedBorder:
-                              OutlineInputBorder(
-                                  borderSide:
-                                  BorderSide(
-                                      color: Colors
-                                          .white)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: const Color(0xff37718E))),
                               border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white)),
-                              labelText: 'Commentaire'),
+                                  borderSide: BorderSide(color: const Color(0xff37718E))),
+                              labelText: 'Commentaire',labelStyle:
+                          TextStyle(color: const Color(0xff37718E))),
                           controller: _commentController,
                         ),
                         Container(
-                            margin:
-                            const EdgeInsets.only(top: 10),
+                            margin: const EdgeInsets.only(top: 10),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     minimumSize: Size(
-                                        MediaQuery.of(context)
-                                            .size
-                                            .width *
+                                        MediaQuery.of(context).size.width *
                                             0.65,
                                         50),
-                                    primary:
-                                    const Color(0xff37718E),
-                                    onPrimary: const Color(
-                                        0xfffafafa)),
+                                    primary: const Color(0xff37718E),
+                                    onPrimary: const Color(0xfffafafa)),
                                 onPressed: () async {
-                                  updateCommentStatus();
+                                  if (_commentController.value.text != '') {
+                                    updateCommentStatus();
+                                  }
                                 },
                                 child: Text('Envoyer'))),
+                        ListView(shrinkWrap: true,
+                            children: [
                         for (var i = 0; i < comments.length; i++)
-                          CommentItem(
-                              comment: comments[i])
-                      ]))))
-        ]));
+                          CommentItem(comment: comments[i])
+                         ])]))))
+        ])));
   }
 }
