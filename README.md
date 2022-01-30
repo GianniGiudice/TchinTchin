@@ -1,19 +1,37 @@
-# tchintchin
+<p align="center"><img src="assets/images/alcohol.png" width="25%"></p>
 
-A new Flutter project.
+# TchinTchin
 
-## Getting Started
+## A propos
 
-This project is a starting point for a Flutter application.
+TchinTchin est une application mobile développée en Flutter dans le cadre du cours de mobile du Master Informatique, Ingénierie et Innovation de la FGES, Université Catholique de Lille.
 
-A few resources to get you started if this is your first Flutter project:
+Il s'agit d'une application permettant aux utilisateurs d'échanger autour de cocktails et de leurs recettes.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## API Utilisée
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://www.thecocktaildb.com/images/cocktail_left.png" width="25%">
 
+L'API utilisée se nomme **TheCocktailDB** et est entièrement gratuite d'utilisation.
 
-https://www.thecocktaildb.com/api.php
+Lien du site web : https://www.thecocktaildb.com/
+
+## Fonctionnalité
+
+TchinTchin met à disposition les fonctionnalités suivantes :
+
+- Inscription / Connexion / Déconnexion (utilisation de l'authentification Firebase)
+- Visualisation des différentes catégories de cocktails
+- Visualisation des cocktails d'une catégorie choisie
+- Visualisation d'un cocktail et de ses informations
+- Recherche de cocktail par nom (partiel ou complet)
+- Ajout d'un cocktail à ses favoris (utilisation d'une base de données Firebase de type Realtime Database)
+- Création d'un commentaire lié à un compte et à un cocktail (utilisation d'une base de données Firebase de type Realtime Database)
+- Visualisation de différentes informations du profil utilisateur
+
+### Membres du projet
+
+- Tristan COUSSAERT
+- Nicolas LEPINETTE
+- Etiam AYEDZE
+- Gianni GIUDICE
