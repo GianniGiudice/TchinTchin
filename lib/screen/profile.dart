@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,15 +21,50 @@ class _ProfileState extends State<Profile> {
   FirebaseAuth? auth;
   User? user;
   File? imageFile;
+  Database dbService = new Database();
+  int likesCount = 0;
+  int commentsCount = 0;
 
-  void init() async {
+  void initState() {
+    super.initState();
     auth = FirebaseAuth.instance;
     user = auth!.currentUser;
+    getUserDataInfo();
+  }
+
+  void getUserLikes() async {
+    DataSnapshot snapshotLikes = await dbService.getLikes();
+    List likes = jsonDecode(jsonEncode(snapshotLikes.value));
+
+    likes.forEach((element) {
+      if (element['user_id'] == user!.uid) {
+        setState(() {
+          likesCount++;
+        });
+      }
+    });
+  }
+
+  void getUserComments() async {
+    DataSnapshot snapshotComments = await dbService.getComments();
+    List comments = jsonDecode(jsonEncode(snapshotComments.value));
+
+    comments.forEach((element) {
+      if (element['user'] == user!.email) {
+        setState(() {
+          commentsCount++;
+        });
+      }
+    });
+  }
+
+  void getUserDataInfo() {
+    getUserLikes();
+    getUserComments();
   }
 
   @override
   Widget build(BuildContext context) {
-    init();
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -79,20 +116,54 @@ class _ProfileState extends State<Profile> {
                   alignment: Alignment.centerLeft,
                   child: Container(
                       margin: EdgeInsets.only(bottom: 15),
-                      child: Text(
-                        'Bienvenue ' +
-                            (user != null ? user!.email! : '') +
-                            ' !',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 18),
-                      ))),
+                      child: Row(children: [
+                        Text(
+                          'Bienvenue ',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text((user != null ? user!.email! : ''),
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold))
+                      ]))),
               Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
-                      child: Text(
-                    'ID utilisateur : ' + (user != null ? user!.uid : ''),
-                    style: TextStyle(fontSize: 18),
-                  ))),
+                      margin: EdgeInsets.only(bottom: 15),
+                      child: Row(children: [
+                        Icon(Icons.info, color: Colors.black, size: 18),
+                        Text(
+                          ' ID utilisateur : ' +
+                              (user != null ? user!.uid : ''),
+                          style: TextStyle(fontSize: 18),
+                        )
+                      ]))),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      margin: EdgeInsets.only(bottom: 15),
+                      child: Row(children: [
+                        Icon(Icons.favorite, color: Colors.red, size: 18),
+                        Text(
+                          ' Nombre de cocktails aimés : ' +
+                              likesCount.toString(),
+                          style: TextStyle(fontSize: 18),
+                        )
+                      ]))),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      margin: EdgeInsets.only(bottom: 15),
+                      child: Row(children: [
+                        Icon(Icons.comment,
+                            color: const Color(0xff37718E), size: 18),
+                        Text(
+                          ' Nombre de commentaires postés : ' +
+                              commentsCount.toString(),
+                          style: TextStyle(fontSize: 18),
+                        )
+                      ]))),
               Container(
                   margin: EdgeInsets.only(top: 30),
                   child: ElevatedButton(

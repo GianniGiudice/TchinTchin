@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +30,7 @@ class _CocktailState extends State<Cocktail> {
   bool hasLiked = false;
   Database dbService = new Database();
   TextEditingController _commentController = TextEditingController();
+  String likeMessage = '';
 
   checkRefreshData() async {
     await refreshData();
@@ -131,6 +131,9 @@ class _CocktailState extends State<Cocktail> {
     dbService.updateLikes(result);
     setState(() {
       hasLiked = !hasLiked;
+      hasLiked
+          ? likeMessage = 'Le cocktail a bien été liké !'
+          : likeMessage = '';
     });
   }
 
@@ -168,7 +171,7 @@ class _CocktailState extends State<Cocktail> {
           Container(
               child: Stack(children: [
             Container(
-              height: 300,
+                height: 300,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     image: DecorationImage(
@@ -187,6 +190,23 @@ class _CocktailState extends State<Cocktail> {
                         color: hasLiked ? Colors.red : Color(0xffd3d3d3),
                         size: 40)))
           ])),
+          Container(
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      padding: const EdgeInsets.all(30),
+                      color: const Color(0xfffafafa),
+                      child: likeMessage != ''
+                          ? Row(children: [
+                              Icon(Icons.favorite,
+                                  color: Colors.green, size: 18),
+                              Text(' ' +
+                                likeMessage,
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.green),
+                              )
+                            ])
+                          : Text('')))),
           Container(
               child: Align(
                   alignment: Alignment.centerLeft,
@@ -215,11 +235,14 @@ class _CocktailState extends State<Cocktail> {
                         TextFormField(
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: const Color(0xff37718E))),
+                                  borderSide: BorderSide(
+                                      color: const Color(0xff37718E))),
                               border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: const Color(0xff37718E))),
-                              labelText: 'Commentaire',labelStyle:
-                          TextStyle(color: const Color(0xff37718E))),
+                                  borderSide: BorderSide(
+                                      color: const Color(0xff37718E))),
+                              labelText: 'Commentaire',
+                              labelStyle:
+                                  TextStyle(color: const Color(0xff37718E))),
                           controller: _commentController,
                         ),
                         Container(
@@ -238,11 +261,11 @@ class _CocktailState extends State<Cocktail> {
                                   }
                                 },
                                 child: Text('Envoyer'))),
-                        ListView(shrinkWrap: true,
-                            children: [
-                        for (var i = 0; i < comments.length; i++)
-                          CommentItem(comment: comments[i])
-                         ])]))))
+                        ListView(shrinkWrap: true, children: [
+                          for (var i = 0; i < comments.length; i++)
+                            CommentItem(comment: comments[i])
+                        ])
+                      ]))))
         ])));
   }
 }
