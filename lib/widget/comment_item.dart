@@ -14,7 +14,7 @@ class _CommentItemState extends State<CommentItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(bottom: 30, top: 30),
+        margin: EdgeInsets.only(bottom: 20, top: 20),
         child: Align(
             alignment: Alignment.centerLeft,
             child: Container(

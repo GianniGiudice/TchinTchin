@@ -105,6 +105,7 @@ class _SearchState extends State<Search> {
                                                               .toString())));
                                         },
                                         child: Card(
+                                          clipBehavior: Clip.antiAlias,
                                           child: Container(
                                             height: 300,
                                             width: double.infinity,
@@ -115,23 +116,27 @@ class _SearchState extends State<Search> {
                                                         _drinks?[index]
                                                                 .strDrinkThumb ??
                                                             ""))),
-                                            child: Padding(
+                                            child: Container(
                                               padding:
                                                   const EdgeInsets.all(10.0),
-                                              child: Text(
-                                                  _drinks?[index].strDrink ??
-                                                      "VIDE",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
+                                              child: Center(
+                                                  child: Text(
+                                                      _drinks?[index]
+                                                              .strDrink ??
+                                                          "VIDE",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                      textAlign:
+                                                          TextAlign.center)),
                                             ),
                                           ),
                                           margin: EdgeInsets.only(
-                                              left: 5.0,
-                                              right: 5.0,
-                                              top: 10.0),
+                                              left: 5.0, right: 5.0, top: 10.0),
                                         ));
                                   },
                                   staggeredTileBuilder: (int index) {

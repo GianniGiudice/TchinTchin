@@ -13,12 +13,12 @@ class MiniListItem extends StatefulWidget {
 class _MiniListItemState extends State<MiniListItem> {
   @override
   Widget build(BuildContext context) {
-    return widget.text != null && widget.text != '' ? Container(
-        color: const Color(0xff37718E),
+    return widget.text != null && widget.text != '' ? Container(color: Colors.transparent, child: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: const Color(0xff37718E)),
         padding: EdgeInsets.all(8),
         margin: EdgeInsets.all(8),
         child:
-        Text(widget.text!, style: TextStyle(color: Colors.white),)) : Text('');
+        Text(widget.text!, style: TextStyle(color: Colors.white),))) : Text('');
   }
 
 }

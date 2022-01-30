@@ -194,7 +194,7 @@ class _CocktailState extends State<Cocktail> {
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
-                      padding: const EdgeInsets.all(30),
+                      padding: const EdgeInsets.only(top: 30, left: 30),
                       color: const Color(0xfffafafa),
                       child: likeMessage != ''
                           ? Row(children: [
@@ -211,7 +211,7 @@ class _CocktailState extends State<Cocktail> {
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
-                      padding: const EdgeInsets.all(30),
+                      padding: const EdgeInsets.only(bottom: 30),
                       color: const Color(0xfffafafa),
                       child: Column(children: [
                         Container(
@@ -247,6 +247,7 @@ class _CocktailState extends State<Cocktail> {
                         ),
                         Container(
                             margin: const EdgeInsets.only(top: 10),
+                            width: double.infinity,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     minimumSize: Size(

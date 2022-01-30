@@ -69,6 +69,7 @@ class _CategoriesListState extends State<CategoriesList> {
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold)),
+                                      hoverColor: Colors.transparent,
                                       onTap: () {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
