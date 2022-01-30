@@ -200,8 +200,8 @@ class _CocktailState extends State<Cocktail> {
                           ? Row(children: [
                               Icon(Icons.favorite,
                                   color: Colors.green, size: 18),
-                              Text(' ' +
-                                likeMessage,
+                              Text(
+                                ' ' + likeMessage,
                                 style: TextStyle(
                                     fontSize: 18, color: Colors.green),
                               )
@@ -215,7 +215,8 @@ class _CocktailState extends State<Cocktail> {
                       color: const Color(0xfffafafa),
                       child: Column(children: [
                         Container(
-                            margin: const EdgeInsets.only(top: 20),
+                            margin: const EdgeInsets.only(
+                                top: 20, left: 22, right: 22),
                             child: Wrap(children: [
                               for (var i = 0; i < 15; i++)
                                 MiniListItem(
@@ -225,6 +226,30 @@ class _CocktailState extends State<Cocktail> {
                                         : '')
                             ]))
                       ])))),
+          Container(
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      padding: const EdgeInsets.only(left: 30, right: 30),
+                      color: const Color(0xfffafafa),
+                      child: drink.strInstructions != null
+                          ? Container(
+                              child: Text(
+                                'Instructions',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            )
+                          : Text('')))),
+          drink.strInstructions != null
+              ? Container(
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          color: const Color(0xfffafafa),
+                          child: Text(drink.strInstructions!))))
+              : Container(),
           Container(
               child: Align(
                   alignment: Alignment.centerLeft,
