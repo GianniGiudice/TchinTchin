@@ -8,7 +8,6 @@ class Database {
 
   Future<DataSnapshot> getLikes() async {
     DatabaseEvent event = await likesRef.once();
-
     return event.snapshot;
   }
 

@@ -2,7 +2,8 @@
   "project_info": {
     "project_number": "460775411932",
     "project_id": "tchintchin-fa3c3",
-    "storage_bucket": "tchintchin-fa3c3.appspot.com"
+    "storage_bucket": "tchintchin-fa3c3.appspot.com",
+    "firebase_url": "https://tchintchin-fa3c3-default-rtdb.europe-west1.firebasedatabase.app"
   },
   "client": [
     {

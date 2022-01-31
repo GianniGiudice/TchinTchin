@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,8 +52,11 @@ class _CocktailState extends State<Cocktail> {
   Future<void> refreshData() async {
     DataSnapshot snapshotLikes = await dbService.getLikes();
     DataSnapshot snapshotComments = await dbService.getComments();
+    log('etiam');
     likes = jsonDecode(jsonEncode(snapshotLikes.value));
     allComments = jsonDecode(jsonEncode(snapshotComments.value));
+    log('test');
+    log(allComments.toString());
     getCocktailComments();
   }
 
